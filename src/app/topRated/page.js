@@ -8,6 +8,7 @@ import NotFoundMessage from "@components/NotFoundMessage"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
 import { fetchMovies } from "@utils/apiService";
+import Link from "next/link"
 
 const CardsWrapper = styled.div`
     display: grid;
@@ -26,13 +27,13 @@ const MovieGroup = styled.h2`
     color: white
 `
 
-export default function Home() {
+export default function TopRated() {
 
     const [movies, setMovies] = useState([])
     const [searchWord, setSearchWord] = useState('');
 
     useEffect(() => {
-        fetchMovies('/movie/popular')
+        fetchMovies('/movie/top_rated')
             .then(setMovies);
     }, [])
 
@@ -45,20 +46,23 @@ export default function Home() {
             <PageContent>
                 <Header fillSearchWordState={fillSearchWordState} />
                 <ContentWrapper>
-                    <MovieGroup>Most popular |</MovieGroup>
+                    <MovieGroup>Top Rated |</MovieGroup>
                     <CardsWrapper>
                         {
-                            movies && movies.map((movie, index) => {
+                            movies && movies.map((movie) => {
+                                if (searchWord && !movie.title.toLowerCase().includes(searchWord)) {
+                                    return null;
+                                }
 
                                 return (
-                                    searchWord ? (movie.title.toLowerCase().includes(searchWord) ? <MovieCard key={index} title={movie.title} poster={movie.poster_path} /> : null) :
-                                        movie.title.includes(searchWord) ? <MovieCard key={index} title={movie.title} poster={movie.poster_path} /> : null
+                                    <Link key={movie.id} href={`/details/${movie.id}`}>
+                                        <MovieCard title={movie.title} poster={movie.poster_path} />
+                                    </Link>
                                 )
                             })
-
                         }
                     </CardsWrapper>
-                    { !(movies.some((movie)=> movie.title.toLowerCase().includes(searchWord))) && <NotFoundMessage>Sorry, we couldn't find what you are looking for.</NotFoundMessage> }
+                    { !(movies.some((movie) => movie.title.toLowerCase().includes(searchWord))) && <NotFoundMessage>Sorry, we couldn't find what you are looking for.</NotFoundMessage> }
                 </ContentWrapper>
             </PageContent>
         </Background>

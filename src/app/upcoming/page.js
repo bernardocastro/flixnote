@@ -26,13 +26,13 @@ const MovieGroup = styled.h2`
     color: white
 `
 
-export default function Home() {
+export default function Upcoming() {
 
     const [movies, setMovies] = useState([])
     const [searchWord, setSearchWord] = useState('');
 
     useEffect(() => {
-        fetchMovies('/movie/popular')
+        fetchMovies('/movie/upcoming')
             .then(setMovies);
     }, [])
 
@@ -45,7 +45,7 @@ export default function Home() {
             <PageContent>
                 <Header fillSearchWordState={fillSearchWordState} />
                 <ContentWrapper>
-                    <MovieGroup>Most popular |</MovieGroup>
+                    <MovieGroup>Upcoming |</MovieGroup>
                     <CardsWrapper>
                         {
                             movies && movies.map((movie, index) => {

@@ -42,16 +42,17 @@ const TitleOverlay = styled.div`
   
   ${Card}:hover & {
     opacity: 1;
-    visibility: visible; /* Mostra o título */
+    visibility: visible;
+    cursor: pointer;
   }
 `;
 
-const MovieCard = (props) => {
+const MovieCard = ({title, poster}) => {
 
   return (
     <Card>
-      <Poster src={'https://image.tmdb.org/t/p/w500/' + props.poster}></Poster>
-      <TitleOverlay>{props.title}</TitleOverlay>
+      <Poster src={'https://image.tmdb.org/t/p/w500/' + poster}></Poster>
+      <TitleOverlay>{title}</TitleOverlay>
     </Card>
   );
 };
