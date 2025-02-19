@@ -1,14 +1,17 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
+import Background from '@components/Background';
 
 const MovieDetails = () => {
-    const movieId = useSearchParams();
+    const { movieId } = useParams();
 
     return (
-        <div>
-            <h1>Detalhes do Filme com o ID: {movieId}</h1>
-        </div>
+        <Background>
+            <div>
+                <h1>Detalhes do Filme com o ID: {movieId}</h1>
+            </div>
+        </Background>
     );
 };
 
