@@ -7,7 +7,7 @@ import Header from "@components/Header"
 import NotFoundMessage from "@components/NotFoundMessage"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
-import { fetchMovies } from "@utils/apiService";
+import { fetchTMDB } from "@utils/apiService";
 import Link from "next/link"
 
 const CardsWrapper = styled.div`
@@ -33,7 +33,7 @@ export default function Upcoming() {
     const [searchWord, setSearchWord] = useState('');
 
     useEffect(() => {
-        fetchMovies('/movie/upcoming')
+        fetchTMDB('/movie/upcoming')
             .then(setMovies);
     }, [])
 
@@ -46,7 +46,7 @@ export default function Upcoming() {
             <PageContent>
                 <Header fillSearchWordState={fillSearchWordState} />
                 <ContentWrapper>
-                    <MovieGroup>Top Rated |</MovieGroup>
+                    <MovieGroup>Upcoming |</MovieGroup>
                     <CardsWrapper>
                         {
                             movies && movies.map((movie) => {

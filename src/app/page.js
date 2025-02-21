@@ -7,7 +7,7 @@ import Header from "@components/Header"
 import NotFoundMessage from "@components/NotFoundMessage"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
-import { fetchMovies } from "@utils/apiService";
+import { fetchTMDB } from "@utils/apiService";
 import Link from "next/link"
 
 const CardsWrapper = styled.div`
@@ -33,7 +33,7 @@ export default function Home() {
     const [searchWord, setSearchWord] = useState('');
 
     useEffect(() => {
-        fetchMovies('/movie/popular')
+        fetchTMDB('/movie/popular')
             .then(setMovies);
     }, [])
 

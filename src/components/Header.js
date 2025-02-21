@@ -78,9 +78,9 @@ const Header = ({ fillSearchWordState }) => {
         <HeaderContainer>
             <LogoContainer>
                 <Link href='/'><Logo>Flixnote</Logo></Link>
-                <Link href='topRated'><GroupItem>Top rated</GroupItem></Link>
+                <Link href='/topRated'><GroupItem>Top rated</GroupItem></Link>
                 <GroupItem>|</GroupItem>
-                <Link href='upcoming'><GroupItem>Upcoming</GroupItem></Link>
+                <Link href='/upcoming'><GroupItem>Upcoming</GroupItem></Link>
             </LogoContainer>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <SearchBar onChange={(e) => fillSearchWordState(e.target.value)} type="text" placeholder="Search..." />

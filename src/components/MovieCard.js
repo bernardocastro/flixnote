@@ -1,6 +1,7 @@
 'use client'
 
 import styled from 'styled-components';
+import { NEXT_PUBLIC_TMDB_IMG_URL } from "utils/config";
 
 const Card = styled.div`
   width: 236px;
@@ -51,7 +52,7 @@ const MovieCard = ({title, poster}) => {
 
   return (
     <Card>
-      <Poster src={'https://image.tmdb.org/t/p/w500/' + poster}></Poster>
+      <Poster src={ NEXT_PUBLIC_TMDB_IMG_URL + poster} />
       <TitleOverlay>{title}</TitleOverlay>
     </Card>
   );
