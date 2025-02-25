@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react';
-import Background from '@components/Background'
 import ContentWrapper from '@components/ContentWrapper';
 import Login from '@components/Login';
 import styled from 'styled-components';
@@ -17,11 +16,9 @@ const LoginContainer = styled.div`
 const LoginPage = () => {
 
   return (
-    <Background>
-      <LoginContainer>
-        <Login />
-      </LoginContainer>
-    </Background>
+    <LoginContainer>
+      <Login />
+    </LoginContainer>
   );
 };
 

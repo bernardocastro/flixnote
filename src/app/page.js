@@ -1,19 +1,31 @@
 'use client'
 
-import Background from "@components/Background"
 import ContentWrapper from "@components/ContentWrapper"
 import MovieCard from "@components/MovieCard"
-import Header from "@components/Header"
-import NotFoundMessage from "@components/NotFoundMessage"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
-import { fetchTMDB } from "@utils/apiService";
+import { fetchTMDB } from "@utils/apiService"
 import Link from "next/link"
+import Navbar from "@components/Navbar"
+import CircularProgress from '@mui/material/CircularProgress';
 
 const CardsWrapper = styled.div`
     display: grid;
     grid-gap: 10px;
     grid-template-columns: auto auto auto ;
+    justify-content: center;
+
+    @media (max-width: 900px) {
+        grid-template-columns: auto auto ;  
+        grid-gap: 5px;
+        justify-content: center;
+    }
+
+    @media (max-width: 595px) {
+        grid-template-columns: auto ;  
+        grid-gap: 5px;
+        justify-content: center;
+    }
 `
 
 const PageContent = styled.div`
@@ -26,45 +38,47 @@ const PageContent = styled.div`
 const MovieGroup = styled.h2`
     color: white
 `
+const LoadingContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+`
 
 export default function Home() {
 
     const [movies, setMovies] = useState([])
-    const [searchWord, setSearchWord] = useState('');
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         fetchTMDB('/movie/popular')
-            .then(setMovies);
+            .then(setMovies, setIsLoading(false));
     }, [])
 
-    function fillSearchWordState(word) {
-        setSearchWord(word);
-    }
-
     return (
-        <Background>
-            <PageContent>
-                <Header fillSearchWordState={fillSearchWordState} />
-                <ContentWrapper>
-                    <MovieGroup>Top Rated |</MovieGroup>
-                    <CardsWrapper>
-                        {
-                            movies && movies.map((movie) => {
-                                if (searchWord && !movie.title.toLowerCase().includes(searchWord)) {
-                                    return null;
-                                }
-
-                                return (
-                                    <Link key={movie.id} href={`/details/${movie.id}`}>
-                                        <MovieCard title={movie.title} poster={movie.poster_path} />
-                                    </Link>
-                                )
-                            })
-                        }
-                    </CardsWrapper>
-                    {!(movies.some((movie) => movie.title.toLowerCase().includes(searchWord))) && <NotFoundMessage>Sorry, we couldn't find what you are looking for.</NotFoundMessage>}
-                </ContentWrapper>
-            </PageContent>
-        </Background>
+        <PageContent>
+            <Navbar />
+            <ContentWrapper>
+                <MovieGroup>Popular |</MovieGroup>
+                <CardsWrapper>
+                    {
+                        movies && movies.map((movie) => {
+                            return (
+                                <Link key={movie.id} href={`/details/${movie.id}`}>
+                                    <MovieCard title={movie.title} poster={movie.poster_path} />
+                                </Link>
+                            )
+                        })
+                    }
+                    {
+                        isLoading &&
+                        <LoadingContainer>
+                            <CircularProgress size="80px" color="inherit" />
+                        </LoadingContainer>
+                    }
+                </CardsWrapper>
+            </ContentWrapper>
+        </PageContent>
     )
 }

@@ -1,20 +1,19 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import Background from '@components/Background';
 import { useState, useEffect } from 'react';
 import { fetchTMDB } from '@utils/apiService';
 import styled from 'styled-components';
 import { NEXT_PUBLIC_TMDB_IMG_URL } from '@utils/config';
-import Header from '@components/Header';
+import Navbar from '@components/Navbar';
 
 const ContentContainer = styled.div`
     display: grid;
     gap: 20px;
     grid-template-columns: 1fr 2fr;
-    max-width: 1200px; /* Definindo um limite de largura */
-    margin: 0 auto; /* Centraliza horizontalmente */
-    padding: 0 20px; /* Adiciona algum espaçamento nas laterais em telas grandes */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 
     @media (max-width: 975px) {
         display: flex;
@@ -33,6 +32,12 @@ const Poster = styled.img`
 const PosterContainer = styled.div`
     width: 400px;
     margin: 40px 20px;
+
+    @media (max-width: 765px) {
+        margin: 0;
+        width: 100vw;
+        text-align: center;
+    }
 `
 
 const DescritiveTextContainer = styled.div`
@@ -41,6 +46,7 @@ const DescritiveTextContainer = styled.div`
     @media (max-width: 975px) {
         margin: 30px 30px 30px 30px;
         text-align: center;
+        width: 100%;
     }
 `
 
@@ -57,8 +63,8 @@ const MovieDetails = () => {
     console.log(movieDetails)
 
     return (
-        <Background>
-            <Header />
+        <>
+            <Navbar />
             <ContentContainer>
                 <PosterContainer>
                     <Poster src={NEXT_PUBLIC_TMDB_IMG_URL + movieDetails.poster_path} />
@@ -71,7 +77,7 @@ const MovieDetails = () => {
                     <p style={{ fontSize: '20px', fontWeight: 'lighter', padding: '10px 15px 15px 0', fontFamily: 'monospace' }}>{movieDetails.overview}</p>
                 </DescritiveTextContainer>
             </ContentContainer>
-        </Background>
+        </>
     );
 };
 

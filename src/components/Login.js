@@ -18,6 +18,10 @@ const SignInWrapper = styled.div`
   min-height: 340px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+
+  @media (max-width: 765px) {
+    margin: 15px;
+  }
 `;
 
 const SignInBox = styled.div`
