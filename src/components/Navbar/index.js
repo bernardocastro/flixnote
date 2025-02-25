@@ -155,7 +155,7 @@ export default function Navbar() {
                 </NavItemsList>
 
                 <div>
-                    <MobileMenuIcon isRotated={isRotated} onClick={handleMenuIconClick}>
+                    <MobileMenuIcon $isRotated={isRotated} onClick={handleMenuIconClick}>
                         <MenuIcon />
                     </MobileMenuIcon>
 
